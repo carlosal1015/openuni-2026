@@ -1,0 +1,33 @@
+\usepackage[spanish,es-noshorthands]{babel}
+\usetheme{unimaths}
+\usepackage{csquotes}
+\usepackage{diffcoeff}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tikz}
+\usepackage[per-mode=symbol,separate-uncertainty=true]{siunitx}
+\usepackage[
+    citestyle=numeric,
+    backend=biber,
+    defernumbers=true,
+    maxcitenames=4
+]{biblatex}
+\sisetup{locale = US}
+\usetikzlibrary{arrows.meta,calc,positioning,shapes.geometric,patterns}
+
+\usefonttheme[onlymath]{serif}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{theorems}[ams style]
+\addtobeamertemplate{theorem begin}{\normalfont}{}
+\setbeamerfont{block title}{series=\bfseries}
+\setbeamersize{text margin left=12pt,text margin right=12pt}
+\setbeamercolor{structure}{fg=granate}
+
+\difdef {f,fp,s,sp} {|}{
+    outer-Ldelim =\left.,
+    outer-Rdelim=\right|,
+    sub-nudge=0mu
+}
+\newcommand{\eabs}{\varepsilon}
+\newcommand{\erel}{\delta}
+\newcommand{\cond}{\eta}

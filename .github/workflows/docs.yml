@@ -11,6 +11,16 @@ jobs:
     runs-on: ubuntu-26.04
 
     steps:
+      - name: Partial Clone
+        shell: bash
+        run: |
+          REPO="https://${GITHUB_ACTOR}:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git"
+          git config --global user.email github-actions@github.com
+          git config --global user.name github-actions
+          git clone -q --filter=blob:none --no-checkout --depth=1  --sparse $REPO .
+          git sparse-checkout set src
+          git checkout
+
       - name: Download artifact
         uses: dawidd6/action-download-artifact@v16
         with:
