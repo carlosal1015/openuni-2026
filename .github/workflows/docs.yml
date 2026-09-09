@@ -1,4 +1,4 @@
-name: MOLE docs
+name: Pages
 
 on:
   push:
@@ -11,10 +11,6 @@ jobs:
     runs-on: ubuntu-26.04
 
     steps:
-      - name: Docs
-        run: |
-          git clone -q --filter=blob:none --depth=1 ${MOLE_REPO}
-
       - name: Download artifact
         uses: dawidd6/action-download-artifact@v16
         with:
