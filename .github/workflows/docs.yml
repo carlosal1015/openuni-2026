@@ -31,7 +31,8 @@ jobs:
       - name: "Untar files"
         run: |
           tar -I zstd -xvf PDF.tar.zst
-          mv public/*.pdf docs
+          mkdir -p docs
+          mv public/*.pdf docs/
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
