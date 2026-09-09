@@ -9,6 +9,7 @@ on:
 jobs:
   docs:
     runs-on: ubuntu-24.04
+    container: ghcr.io/cpp-review-dune/introductory-review/aur
 
     steps:
       - name: Download artifact
