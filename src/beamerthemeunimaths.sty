@@ -1,0 +1,157 @@
+%% Package `unimaths' v1.0.0
+%% File beamerthemeunimaths.sty
+%% Copyright 2025 Josh Fogg
+%%
+%% beamerthemeunimaths.sty is a LaTeX style file for typesetting presentations
+%% for the Universidad Nacional de Ingeniería. See README.md for usage
+%% instructions.
+%%
+%% This work may be distributed and/or modified under the conditions of the
+%% LaTeX Project Public License, either version 1.3 of this license or (at
+%% your option) any later version.
+%%
+%% The latest version of this license is in http://latex-project.org/lppl.txt
+%% and version 1.3 or later is part of all distributions of LaTeX version
+%% 2005/12/01 or later.
+%%
+%% This work consists of beamerthemeunimaths.sty and requires the UNI logo files
+%% images/logouni.pdf and images/logouniblack.pdf to compile.
+
+\ProvidesPackage{beamerthemeunimaths}[2026-08-29 Tema Beamer de la UNI]
+\RequirePackage{mathtools}
+
+% Colores institucionales de la Universidad Nacional de Ingeniería
+\definecolor{granate}{HTML}{711610}
+\definecolor{beige}{HTML}{e6d9aa}
+\definecolor{gris}{HTML}{9a999d}
+
+% Permite seleccionar un color alternativo de xcolor, si es necesario.
+\newcommand{\beamer@UNI@color}{granate}
+\DeclareOptionBeamer{color}{\def\beamer@UNI@color{#1}}
+\DeclareOptionBeamer{colour}{\def\beamer@UNI@color{#1}}
+
+% Altura reservada para el título de cada diapositiva.
+\newdimen\beamer@UNI@titleheight
+\beamer@UNI@titleheight=8ex
+\DeclareOptionBeamer{theight}{\beamer@UNI@titleheight=#1}
+
+% Proporción 16:10; use aspectratio=1610 en \documentclass.
+\geometry{paperwidth=25.60cm, paperheight=16.00cm}
+
+\ProcessOptionsBeamer
+
+\newcommand\crule[3][\beamer@UNI@color]{\textcolor{#1}{\rule{#2}{#3}}}
+
+\setbeamerfont{title}{series=\bfseries,size=\fontsize{24}{28}}%
+\setbeamerfont{subtitle}{size=\fontsize{16}{19}}
+\setbeamerfont{author}{size={\fontsize{12}{14}}}
+\setbeamerfont{institute}{size=\fontsize{12}{14}}
+\setbeamerfont{pagexofy}{size=\tiny}
+\setbeamerfont{caption}{size=\small}
+\setbeamerfont{frametitle}{family=\sffamily,series=\bfseries,size={\fontsize{15}{18}}}
+\setbeamerfont{itemize item}{family=\sffamily}
+\setbeamerfont{itemize subitem}{family=\sffamily}
+\setbeamertemplate{itemize/enumerate body begin}{\normalsize}
+\setbeamertemplate{itemize/enumerate subbody begin}{\normalsize}
+\AtBeginDocument{%
+    % La portada no se cuenta; la numeración comienza en la segunda diapositiva.
+    \addtocounter{framenumber}{-1}%
+}
+
+%\setbeamertemplate{items}[ball]
+\setbeamertemplate{navigation symbols}{}
+\setbeamerfont{alerted text}{series=\bfseries}
+\setbeamercolor{alerted text}{fg=\beamer@UNI@color}
+\setbeamercolor{title}{fg=granate}
+\setbeamercolor{normal text}{fg=black}
+\setbeamertemplate{itemize item}{\color{\beamer@UNI@color}$\bullet$}
+\setbeamertemplate{itemize subitem}{\color{\beamer@UNI@color}$\circ$}
+
+
+\newcommand{\SetUNITitleMargin}[1]{\beamer@UNI@titleheight=#1}
+\newcommand{\SetUNITitleHeight}[1]{\beamer@UNI@titleheight=#1}
+
+
+\setbeamertemplate{title page}{
+    \raggedright
+    \hspace*{1.7cm}\begin{minipage}[t]{\dimexpr\paperwidth-1.7cm\relax}
+        % TITLE
+        {\usebeamerfont{title}\textcolor{white}\inserttitle\par}
+        % SUBTITLE
+        \ifx\insertsubtitle\@empty
+        \else%
+            \vspace{1ex}
+            {\usebeamerfont{subtitle}\textcolor{white}\insertsubtitle\par}
+        \fi
+        \vspace{6ex}
+        % AUTHOR
+        {\usebeamerfont{author}\textcolor{white}\insertauthor\par}
+        \ifx\insertinstitute\@empty
+        \else%
+            \vspace{3ex}
+            {\usebeamerfont{institute}\textcolor{white}\insertinstitute\par}
+        \fi
+        % DATE
+        \ifx\insertdate\empty
+        \else%
+            \vspace{1ex}
+            \usebeamerfont{date}\textcolor{white}{\insertdate}\par
+        \fi
+    \end{minipage}
+}
+
+
+\setbeamertemplate{background}{
+    \setlength{\unitlength}{1cm}
+    \begin{picture}(25.6,16)(0,0)
+        % Portada con fondo institucional y logotipo conmemorativo de la UNI.
+        \ifnum\c@framenumber=0%
+            \put(-0.15, -0.15){\crule[granate]{25.9cm}{16.3cm}}
+            \put(17.4, 12.2){\includegraphics[width=7.2cm]{images/logo-150-blanco}}
+        % Las diapositivas de contenido se mantienen limpias y sin barra lateral.
+        \else%
+            \ifnum\c@framenumber<10%
+                \put(23.8,0.44){\footnotesize\color{granate}{\phantom{0}\insertframenumber/\inserttotalframenumber}}
+            \else
+                \put(23.8,0.44){\footnotesize\color{granate}{\insertframenumber/\inserttotalframenumber}}
+            \fi%
+        \fi%
+    \end{picture}
+}
+
+
+% Default slide formatting
+\setbeamertemplate{frametitle}{
+    % Añade un margen superior fuera de la portada.
+    \ifnum\c@framenumber=0%
+        \empty%
+    \else
+        \vspace*{\beamer@UNI@titleheight}
+    \fi
+    % Usa el color institucional para el título.
+    \usebeamercolor[fg]{title}
+    % handle situation where there's no subtitle
+    \ifx\insertframesubtitle\@empty
+        \usebeamerfont{frametitle}{\insertframetitle}
+    \else
+        \usebeamerfont{frametitle}{\insertframetitle:\nobreakspace{}{\normalfont\insertframesubtitle}}
+    \fi
+    % ensures spacing after the title
+    \vspace*{1em}
+}
+
+\setbeamersize{text margin left=10pt,text margin right=10pt}
+
+% Ensures images are compressed when brought in by PDF
+\ifdefined\pdfvariable
+  \pdfvariable compresslevel = 9
+  \pdfvariable objcompresslevel = 3
+\else
+  \pdfcompresslevel=9
+  \pdfobjcompresslevel=3
+\fi
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "sample"
+%%% End:
